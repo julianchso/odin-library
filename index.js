@@ -1,3 +1,9 @@
+// TODO: add css fancy input later
+// https://codepen.io/avstorm/pen/gKGbxo
+// https://codepen.io/lucasyem/pen/ZEEYKdj
+
+const submitBtn = document.querySelector('#submitBtn');
+
 let myLibrary = [];
 
 class Book {
