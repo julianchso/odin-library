@@ -26,27 +26,31 @@
       Github repository can be viewed <a href="https://github.com/julianchso/odin-library">here</a>
     </h3>
     <form action="">
-      <label for="title">Title: </label>
+      <label for="title" class="margin-left-20px">Title: </label>
       <input type="text" id="title" name="title" class="bookInfo" />
-      <label for="author">Author: </label>
+      <label for="author" class="margin-left-20px">Author: </label>
       <input type="text" id="author" name="author" class="bookInfo" />
       <div class="statusCtn">
-        <span>Status: </span>
+        <span class="margin-left-20px">Status: </span>
         <ul class="status">
-          <li><input type="radio" id="read" name="readStatus" /> <label for="read">read</label></li>
           <li>
-            <input type="radio" id="notRead" name="readStatus" /> <label for="read">not read</label>
+            <input type="radio" id="read" name="readStatus" value="read" checked="checked" />
+            <label for="read">read</label>
+          </li>
+          <li>
+            <input type="radio" id="notRead" name="readStatus" value="not read" />
+            <label for="read">not read</label>
           </li>
         </ul>
       </div>
-      <button type="submit" id="submitBtn" class="defaultFont">Add Book</button>
+      <button type="button" id="submitBtn" class="defaultFont">Add Book</button>
     </form>
 
     <table>
       <tr>
-        <th class="columnTitle">title</th>
-        <th class="columnAuthor">author</th>
-        <th class="columnStatus">status</th>
+        <th class="columnTitle">Title</th>
+        <th class="columnAuthor">Author</th>
+        <th class="columnStatus">Status</th>
         <th class="columnDelete"></th>
       </tr>
     </table>

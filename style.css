@@ -128,16 +128,21 @@ table {
   border-spacing: 0;
 }
 
+body {
+  max-width: 1080px;
+  margin: 0 auto;
+  float: none;
+}
+
 h1 {
   font-size: 5rem;
-  text-align: center;
-  margin: 30px auto;
+  text-align: left;
+  margin: 30px 0;
 }
 
 h3 {
   font-size: 1.2rem;
   font-weight: 100;
-  text-align: center;
   padding: 10px 0;
 }
 
@@ -145,6 +150,7 @@ form {
   display: block;
   text-align: center;
   padding: 10px 0;
+  margin: 20px 0;
 }
 
 .defaultFont {
@@ -176,8 +182,8 @@ li,
   display: inline;
 }
 
-input {
-  margin-right: 20px;
+.margin-left-20px {
+  margin-left: 20px;
 }
 
 table {
@@ -204,4 +210,13 @@ th.columnDelete {
 th,
 td {
   text-align: left;
+}
+
+tr > th {
+  font-weight: 700;
+}
+
+/* TODO */
+.deleteBtn {
+  font-family: inherit;
 }
