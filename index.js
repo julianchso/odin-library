@@ -45,16 +45,7 @@ function addBookToLibrary() {
 }
 
 function renderBookList() {
-  const deleteBtn = document.createElement('button');
   tbody.innerHTML = '';
-
-  //   table.innerHTML = `
-  //   <tr>
-  //   <th class="columnTitle">Title</th>
-  //   <th class="columnAuthor">Author</th>
-  //   <th class="columnStatus">Status</th>
-  //   <th class="columnDelete"></th>
-  // </tr>`;
 
   for (let i = 0; i < myLibrary.length; i++) {
     newRow = document.createElement('tr');
@@ -69,8 +60,6 @@ function renderBookList() {
           cell.classList.add('btn-lightRed');
         }
         cell.appendChild(cellText);
-        // TODO: add delete button afterwards
-        // cell.appendChild(deleteBtn);
         newRow.appendChild(cell);
       } else {
         const cell = document.createElement('td');
@@ -81,6 +70,9 @@ function renderBookList() {
 
       console.log(key, myLibrary[i][key]);
     });
+    const deleteBtn = document.createElement('button');
+
+    newRow.appendChild(deleteBtn);
     tbody.appendChild(newRow);
   }
   table.appendChild(tbody);
