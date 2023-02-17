@@ -46,6 +46,15 @@ function addBookToLibrary() {
 
 function renderBookList() {
   const deleteBtn = document.createElement('button');
+  tbody.innerHTML = '';
+
+  //   table.innerHTML = `
+  //   <tr>
+  //   <th class="columnTitle">Title</th>
+  //   <th class="columnAuthor">Author</th>
+  //   <th class="columnStatus">Status</th>
+  //   <th class="columnDelete"></th>
+  // </tr>`;
 
   for (let i = 0; i < myLibrary.length; i++) {
     newRow = document.createElement('tr');
