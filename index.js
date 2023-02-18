@@ -40,8 +40,8 @@ class Book {
 
 function addBookToLibrary() {
   // do stuff here
-  currentBook = new Book(title.value, author.value, readStatus_value);
-  myLibrary.push(currentBook);
+  newBook = new Book(title.value, author.value, readStatus_value);
+  myLibrary.push(newBook);
 }
 
 function renderBookList() {
@@ -49,28 +49,30 @@ function renderBookList() {
 
   for (let i = 0; i < myLibrary.length; i++) {
     newRow = document.createElement('tr');
+    const deleteBtn = document.createElement('span');
 
     Object.keys(myLibrary[i]).forEach((key) => {
-      if (key == 'readStatus') {
-        const cell = document.createElement('button');
-        const cellText = document.createTextNode(myLibrary[i][key]);
-        if (myLibrary[i][key] == 'read') {
-          cell.classList.add('btn-lightGreen');
-        } else if (myLibrary[i][key] == 'not read') {
-          cell.classList.add('btn-lightRed');
-        }
-        cell.appendChild(cellText);
-        newRow.appendChild(cell);
-      } else {
-        const cell = document.createElement('td');
-        const cellText = document.createTextNode(myLibrary[i][key]);
-        cell.appendChild(cellText);
-        newRow.appendChild(cell);
-      }
+      const cell = document.createElement('td');
+      const cellText = document.createTextNode(myLibrary[i][key]);
 
-      console.log(key, myLibrary[i][key]);
+      if (key == 'readStatus') {
+        const btn = document.createElement('button');
+        const value = myLibrary[i][key];
+        const btnText = document.createTextNode(value);
+
+        if (value == 'read') {
+          btn.classList.add('btn-lightGreen');
+        } else if (value == 'not read') {
+          btn.classList.add('btn-lightRed');
+        }
+        btn.appendChild(btnText);
+        cell.appendChild(btn);
+      } else {
+        cell.appendChild(cellText);
+      }
+      newRow.appendChild(cell);
     });
-    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can deleteBtn"></i>';
 
     newRow.appendChild(deleteBtn);
     tbody.appendChild(newRow);
