@@ -15,8 +15,8 @@ submitBtn.addEventListener('click', () => {
   changeReadStatus();
   addBookToLibrary();
   renderBookList();
+  clearInput();
 });
-// submitBtn.addEventListener('click', addBookToLibrary);
 
 function changeReadStatus() {
   for (let i = 0; i < readStatus.length; i++) {
@@ -32,16 +32,35 @@ class Book {
     this.title = title;
     this.author = author;
     this.readStatus = readStatus;
-    // this.listBooks = function listBooks() {
-    //   console.log(`${title}, ${author}, ${read}`);
-    // };
   }
 }
 
 function addBookToLibrary() {
   // do stuff here
+  if (title.value == '' && author.value == '') {
+    alert('Title and Author must not be blank!');
+    return;
+  }
   newBook = new Book(title.value, author.value, readStatus_value);
   myLibrary.push(newBook);
+}
+
+function deleteBook(e) {
+  let deleteTitle = e.target.parentNode.parentNode.childNodes[0].innerHTML;
+  let deleteAuthor = e.target.parentNode.parentNode.childNodes[1].innerHTML;
+  let index;
+  console.log(deleteTitle);
+
+  myLibrary.forEach((book) => {
+    // console.log(book);
+    if (book.title == deleteTitle && book.author == deleteAuthor) {
+      index = myLibrary.indexOf(book);
+      console.log(`findBook index: ${index}`);
+    }
+  });
+
+  myLibrary.splice(index, 1);
+  renderBookList();
 }
 
 function renderBookList() {
@@ -76,6 +95,14 @@ function renderBookList() {
 
     newRow.appendChild(deleteBtn);
     tbody.appendChild(newRow);
+
+    // TODO
+    deleteBtn.addEventListener('click', deleteBook);
   }
   table.appendChild(tbody);
+}
+
+function clearInput() {
+  title.value = '';
+  author.value = '';
 }

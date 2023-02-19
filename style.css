@@ -221,6 +221,7 @@ tr > th {
 /* TODO */
 .deleteBtn {
   font-family: inherit;
+  cursor: pointer;
 }
 
 button {
