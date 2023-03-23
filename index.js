@@ -12,20 +12,11 @@ let readStatus_value;
 let myLibrary = [];
 
 submitBtn.addEventListener('click', () => {
-  changeReadStatus();
-  addBookToLibrary();
+  addReadStatus();
+  testLibrary.addBook();
   renderBookList();
   clearInput();
 });
-
-function changeReadStatus() {
-  for (let i = 0; i < readStatus.length; i++) {
-    if (readStatus[i].checked) {
-      readStatus_value = readStatus[i].value;
-      break;
-    }
-  }
-}
 
 class Book {
   constructor(title, author, readStatus) {
@@ -35,14 +26,70 @@ class Book {
   }
 }
 
-function addBookToLibrary() {
-  // do stuff here
-  if (title.value == '' && author.value == '') {
-    alert('Title and Author must not be blank!');
-    return;
+class Library {
+  constructor() {
+    this.books = [];
   }
-  newBook = new Book(title.value, author.value, readStatus_value);
-  myLibrary.push(newBook);
+
+  addBook() {
+    // do stuff here
+    if (title.value == '' && author.value == '') {
+      alert('Title and Author must not be blank!');
+      return;
+    }
+    const newBook = new Book(title.value, author.value, readStatus_value);
+    this.books.push(newBook);
+  }
+
+  renderBookList() {
+    tbody.innerHTML = '';
+
+    for (let i = 0; i < testLibrary.length; i++) {
+      newRow = document.createElement('tr');
+      const deleteBtn = document.createElement('span');
+
+      Object.keys(testLibrary[i]).forEach((key) => {
+        const cell = document.createElement('td');
+        const cellText = document.createTextNode(testLibrary[i][key]);
+
+        if (key == 'readStatus') {
+          const btn = document.createElement('button');
+          const value = testLibrary[i][key];
+          const btnText = document.createTextNode(value);
+
+          if (value == 'read') {
+            btn.classList.add('btn-lightGreen');
+          } else if (value == 'not read') {
+            btn.classList.add('btn-lightRed');
+          }
+          btn.appendChild(btnText);
+          cell.appendChild(btn);
+        } else {
+          cell.appendChild(cellText);
+        }
+        newRow.appendChild(cell);
+      });
+      deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can deleteBtn"></i>';
+
+      newRow.appendChild(deleteBtn);
+      tbody.appendChild(newRow);
+
+      // TODO
+      deleteBtn.addEventListener('click', deleteBook);
+    }
+    table.appendChild(tbody);
+  }
+}
+
+let testLibrary = new Library();
+
+function addReadStatus() {
+  for (let i = 0; i < readStatus.length; i++) {
+    if (readStatus[i].checked) {
+      readStatus_value = readStatus[i].value;
+      break;
+    }
+  }
 }
 
 function deleteBook(e) {
@@ -63,46 +110,13 @@ function deleteBook(e) {
   renderBookList();
 }
 
-function renderBookList() {
-  tbody.innerHTML = '';
-
-  for (let i = 0; i < myLibrary.length; i++) {
-    newRow = document.createElement('tr');
-    const deleteBtn = document.createElement('span');
-
-    Object.keys(myLibrary[i]).forEach((key) => {
-      const cell = document.createElement('td');
-      const cellText = document.createTextNode(myLibrary[i][key]);
-
-      if (key == 'readStatus') {
-        const btn = document.createElement('button');
-        const value = myLibrary[i][key];
-        const btnText = document.createTextNode(value);
-
-        if (value == 'read') {
-          btn.classList.add('btn-lightGreen');
-        } else if (value == 'not read') {
-          btn.classList.add('btn-lightRed');
-        }
-        btn.appendChild(btnText);
-        cell.appendChild(btn);
-      } else {
-        cell.appendChild(cellText);
-      }
-      newRow.appendChild(cell);
-    });
-    deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can deleteBtn"></i>';
-
-    newRow.appendChild(deleteBtn);
-    tbody.appendChild(newRow);
-
-    // TODO
-    deleteBtn.addEventListener('click', deleteBook);
-  }
-  table.appendChild(tbody);
-}
-
 function clearInput() {
   title.value = '';
   author.value = '';
 }
+
+readStatus.forEach((status) => {
+  status.addEventListener('click', toggleReadStatus);
+});
+
+function toggleReadStatus() {}
