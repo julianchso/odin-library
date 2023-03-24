@@ -49,7 +49,6 @@ class Library {
     let index;
     console.log(this);
 
-    // TODO
     this.books.forEach((book) => {
       if (book.title == deleteTitle && book.author == deleteAuthor) {
         index = this.books.indexOf(book);
