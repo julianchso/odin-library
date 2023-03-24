@@ -11,10 +11,10 @@ let tbody = document.querySelector('tbody');
 let readStatus_value;
 let myLibrary = [];
 
-submitBtn.addEventListener('click', () => {
+let init = submitBtn.addEventListener('click', () => {
   addReadStatus();
   testLibrary.addBook();
-  renderBookList();
+  testLibrary.renderBookList();
   clearInput();
 });
 
@@ -29,32 +29,51 @@ class Book {
 class Library {
   constructor() {
     this.books = [];
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   addBook() {
-    // do stuff here
     if (title.value == '' && author.value == '') {
       alert('Title and Author must not be blank!');
       return;
     }
     const newBook = new Book(title.value, author.value, readStatus_value);
+    console.log(this.books);
+    console.log(this);
     this.books.push(newBook);
+  }
+
+  deleteBook(e) {
+    let deleteTitle = e.target.parentNode.parentNode.childNodes[0].innerHTML;
+    let deleteAuthor = e.target.parentNode.parentNode.childNodes[1].innerHTML;
+    let index;
+    console.log(this);
+
+    // TODO
+    this.books.forEach((book) => {
+      if (book.title == deleteTitle && book.author == deleteAuthor) {
+        index = this.books.indexOf(book);
+      }
+    });
+
+    this.books.splice(index, 1);
+    this.renderBookList();
   }
 
   renderBookList() {
     tbody.innerHTML = '';
 
-    for (let i = 0; i < testLibrary.length; i++) {
-      newRow = document.createElement('tr');
+    for (let i = 0; i < this.books.length; i++) {
+      let newRow = document.createElement('tr');
       const deleteBtn = document.createElement('span');
 
-      Object.keys(testLibrary[i]).forEach((key) => {
+      Object.keys(this.books[i]).forEach((key) => {
         const cell = document.createElement('td');
-        const cellText = document.createTextNode(testLibrary[i][key]);
+        const cellText = document.createTextNode(this.books[i][key]);
 
         if (key == 'readStatus') {
           const btn = document.createElement('button');
-          const value = testLibrary[i][key];
+          const value = this.books[i][key];
           const btnText = document.createTextNode(value);
 
           if (value == 'read') {
@@ -75,13 +94,11 @@ class Library {
       tbody.appendChild(newRow);
 
       // TODO
-      deleteBtn.addEventListener('click', deleteBook);
+      deleteBtn.addEventListener('click', testLibrary.deleteBook);
     }
     table.appendChild(tbody);
   }
 }
-
-let testLibrary = new Library();
 
 function addReadStatus() {
   for (let i = 0; i < readStatus.length; i++) {
@@ -90,24 +107,6 @@ function addReadStatus() {
       break;
     }
   }
-}
-
-function deleteBook(e) {
-  let deleteTitle = e.target.parentNode.parentNode.childNodes[0].innerHTML;
-  let deleteAuthor = e.target.parentNode.parentNode.childNodes[1].innerHTML;
-  let index;
-  console.log(deleteTitle);
-
-  myLibrary.forEach((book) => {
-    // console.log(book);
-    if (book.title == deleteTitle && book.author == deleteAuthor) {
-      index = myLibrary.indexOf(book);
-      console.log(`findBook index: ${index}`);
-    }
-  });
-
-  myLibrary.splice(index, 1);
-  renderBookList();
 }
 
 function clearInput() {
@@ -120,3 +119,5 @@ readStatus.forEach((status) => {
 });
 
 function toggleReadStatus() {}
+
+let testLibrary = new Library();
